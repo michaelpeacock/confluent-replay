@@ -1,0 +1,443 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+
+body {
+    background: #030531;
+}
+
+#background {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    color: #030531
+}
+
+.title {
+    margin: auto;
+    height: 60px;
+    width: 80%;
+    align-items: center;
+}
+
+#logo {
+    position: absolute;
+    width: 275px;
+    top: 0px;
+}
+
+#kivo {
+    position: absolute;
+    height: 50px;
+    cursor: pointer;
+    top: 5px;
+    right: 12%;
+    z-index: 4;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+    color: white;
+}
+
+.btn {
+    border: 2px solid gray;
+    color: gray;
+    background-color: white;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-family: 'PT Sans', sans-serif;
+    font-weight: bold;
+}
+
+.btn:active {
+    transform: scale(0.98);
+    /* Scaling button to 0.98 to its original size */
+    box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+    /* Lowering the shadow */
+}
+
+.btn:disabled {
+    color: white;
+    background-color: lightgrey;
+}
+
+.sys-messages {
+    max-height: 300px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/* container for music player */
+.container {
+    position: absolute;
+    height: 80%;
+    width: 80%;
+    margin: auto;
+    top: 0px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    display: flex;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #000000;
+}
+
+/* container for play, pause, previous track, next track, and progress bar  */
+.box {
+    position: absolute;
+    height: 150px;
+    width: 100%;
+    background: #62BFEA;
+    z-index: 1;
+    top: 100px;
+    overflow: hidden;
+}
+
+.time-selection {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+label {
+    color: #757575;
+    font-family: 'PT Sans', sans-serif;
+    font-weight: bold;
+    line-height: 17px;
+    font-size: 13px; cursor:pointer; margin-bottom: 5px
+}
+
+p {
+    color: #757575;
+    font-family: 'PT Sans', sans-serif;
+    font-weight: bold;
+    line-height: 17px;
+    font-size: 15px; cursor:pointer; margin-bottom: 5px
+}
+
+table {
+    width: 100%;
+    color: #757575;
+    font-family: 'PT Sans', sans-serif;
+}
+table, th, td {
+    text-align: left;
+    table-layout: fixed;
+    position: relative;
+    border-collapse: collapse;
+    border: 1px solid black;
+}
+th, td {
+    padding: 0.25rem;
+}
+
+th {
+    background: #62BFEA;
+    color: black;
+    text-align: center;
+    position: sticky;
+    top: 0; /* Don't forget this, required for the stickiness */
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+}
+
+.topic-data-div {
+    position: absolute;
+    overflow-x: scroll;
+    height: 65%;
+    z-index: 1;
+    top: 280px;
+    left: 1%;
+    width: 98%;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="time"] {
+    border: 2px solid gray;
+    padding:4px 4px;
+    border-radius: 8px;
+    font: 13px "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #777;
+    margin: 0;
+    max-width: 100%;
+    margin-bottom: 18px;
+    background: #fff;
+}
+
+.player-controls {
+    position: absolute;
+    top: 0px;
+}
+/* style for play and pause images */
+#play-pause {
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+    top: 85px;
+    z-index: 5;
+    font-size: 53px;
+    left: 10px;
+}
+
+#stop {
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+    top: 85px;
+    z-index: 3;
+    font-size: 53px;
+    left: 60px;
+}
+
+#forward {
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+    top: 85px;
+    z-index: 3;
+    font-size: 53px;
+    left: 110px;
+}
+
+
+/* style for current time of the track */
+.replaySpeed {
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+    top: 20px;
+    left: 75px;
+    z-index: 4;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    align-items: center;
+    color: black;
+}
+.replayDate {
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+    top: 40px;
+    left: 55px;
+    z-index: 4;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    align-items: center;
+    color: black;
+}
+/* style for the total length of the track */
+.replayTime {
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+    top: 60px;
+    left: 55px;
+    z-index: 4;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    align-items: center;
+    color: black;
+}
+
+/* style for the progress bar */
+#progress-bar {
+    -webkit-appearance: none;
+    appearance: none;
+    position: absolute;
+    z-index: 4;
+    height: 5px;
+    background: #000000;
+    width: 990px;
+    top: 95px;
+    border-radius: 30px;
+    left: 195px;
+}
+
+.start-tick {
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+    top: 82px;
+    left: 200px;
+    z-index: 4;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    color: black;
+    font-weight: bold;
+    text-shadow: 0px 1px, 1px 0px, 1px 1px;
+    align-items: center;
+}
+
+#start-time {
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+    top: 40px;
+    left: 180px;
+    z-index: 4;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    color: black;
+    align-items: center;
+}
+
+.quarter-tick {
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+    top: 82px;
+    left: 445px;
+    z-index: 4;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    color: black;
+    font-weight: bold;
+    text-shadow: 0px 1px, 1px 0px, 1px 1px;
+    align-items: center;
+}
+
+#quarter-time {
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+    top: 40px;
+    left: 425px;
+    z-index: 4;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    color: black;
+    align-items: center;
+}
+
+.mid-tick {
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+    top: 82px;
+    left: 690px;
+    z-index: 4;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    color: black;
+    align-items: center;
+    font-weight: bold;
+    text-shadow: 0px 1px, 1px 0px, 1px 1px;
+}
+
+#mid-time {
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+    top: 40px;
+    left: 660px;
+    z-index: 4;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    color: black;
+    align-items: center;
+}
+
+
+.three-quarter-tick {
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+    top: 82px;
+    left: 935px;
+    z-index: 4;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    color: black;
+    font-weight: bold;
+    text-shadow: 0px 1px, 1px 0px, 1px 1px;
+    align-items: center;
+}
+
+#three-quarter-time {
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+    top: 40px;
+    left: 915px;
+    z-index: 4;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    color: black;
+    align-items: center;
+}
+
+.end-tick {
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+    top: 82px;
+    left: 1180px;
+    z-index: 4;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    color: black;
+    align-items: center;
+    font-weight: bold;
+    text-shadow: 0px 1px, 1px 0px, 1px 1px;
+}
+
+#end-time {
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+    top: 40px;
+    left: 1150px;
+    z-index: 4;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    color: black;
+    align-items: center;
+}
+/* style for the progress bar's slider thumb */
+#progress-bar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    margin-top: -3px;
+    margin-left: 0px;
+    height: 15px;
+    width: 7px;
+    border: 0;
+    background: #ffffff;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+/* style for the progress bar's runnable track */
+#progress-bar::-webkit-slider-runnable-track {
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    max-height: 5px;
+    border-radius: 30px;
+}
+
+/* style to remove blue shade of the progress bar when clicked on/selected */
+#progress-bar:focus {
+    outline: none;
+}
