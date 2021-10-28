@@ -1,5 +1,6 @@
 var stompClient = null;
-let isConnected = false;
+var isConnected = false;
+var socket = null;
 connect();
 
 function setConnected(connected) {
@@ -12,17 +13,29 @@ function getConnectedStatus() {
 }
 
 function connect() {
-    var socket = new SockJS('/confluent-websocket');
+    socket = new SockJS('/confluent-websocket');
     stompClient = Stomp.over(socket);
+
     stompClient.connect({}, function (frame) {
         setConnected(true);
+        dispatchEvent(new CustomEvent("server-connected"));
         console.log('Connected: ' + frame);
     });
+
+    socket.onclose = function() {
+        // connection closed, discard old websocket and create a new one in 5s
+        disconnect();
+        socket = null;
+        setTimeout(connect, 5000);
+    };
 }
+
+
 
 function disconnect() {
     if (stompClient !== null) {
         stompClient.disconnect();
+        stompClient = null;
     }
     setConnected(false);
     console.log("Disconnected");

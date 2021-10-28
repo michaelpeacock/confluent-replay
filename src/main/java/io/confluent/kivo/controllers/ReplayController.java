@@ -1,10 +1,8 @@
 package io.confluent.kivo.controllers;
 
 import io.confluent.kivo.models.ReplayConfig;
-import io.confluent.kivo.models.ReplayState;
-import io.confluent.kivo.replay.SimpleReplayConsumer;
+import io.confluent.kivo.replay.ReplayManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ReplayController {
     @Autowired
-    SimpleReplayConsumer replay;
+    ReplayManager replay;
 
     @PostMapping({"setConfigValues"})
     public void setConfigValues(@RequestBody ReplayConfig setup) {
@@ -33,8 +31,8 @@ public class ReplayController {
     }
 
     @PostMapping({"setTime"})
-    public void setTime(@RequestBody Double time) {
-        System.out.println("setSpeed: " + time);
+    public void setState(@RequestBody Long time) {
+        System.out.println("setTime: " + time);
         replay.setTime(time);
     }
 

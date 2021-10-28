@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReplayState {
-    private Double replayTime;
+    private Long replayTime;
     private Integer replaySpeed = 1;
     private String replayState = "STOP"; // PLAY, PAUSE, STOP
     private List<ReplayData> replayData = new ArrayList<>();
 
-    public Double getReplayTime() {
+    public Long getReplayTime() {
         return replayTime;
     }
 
-    public void setReplayTime(Double replayTime) {
+    public void setReplayTime(Long replayTime) {
         this.replayTime = replayTime;
     }
 

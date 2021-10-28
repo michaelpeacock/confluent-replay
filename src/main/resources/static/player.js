@@ -25,9 +25,11 @@ let endTimeMS = 0;
 
 submit.disabled = true;
 
-initialize();
+addEventListener('server-connected', () => initialize());
+
 function initialize() {
     console.log("in initialize connected " + getConnectedStatus());
+
     if (getConnectedStatus()) {
         console.log("subscribing to replay-data");
         stompClient.subscribe('/topic/replay-data', function (data) {
@@ -35,29 +37,33 @@ function initialize() {
         });
     } else {
         console.log("setting timeout");
-        setTimeout(initialize, 500);
+        setTimeout(initialize, 5000);
     }
 }
 
-function handleReplayData(data) {
-    console.log("time: " + convertEpochDateTime(data.timestamp));
-    console.log("key: " + data.key);
-    console.log("value: " + data.value);
+function handleReplayData(replayData) {
+    replayData.replayDataList.forEach(data => {
+        console.log("time: " + convertEpochDateTime(data.timestamp));
+        console.log("key: " + data.key);
+        console.log("value: " + data.value);
 
-    replayDate.innerHTML = convertEpochDate(data.timestamp);
-    replayTime.innerHTML = convertEpochTime(data.timestamp);
+        replayDate.innerHTML = convertEpochDate(data.timestamp);
+        replayTime.innerHTML = convertEpochTime(data.timestamp);
 
-    let progressValue = ((data.timestamp - startTimeMS) / (endTimeMS - startTimeMS)) * 100;
-    console.log("progress value: " + progressValue);
-    progressBar.value = progressValue;
+        let progressValue = ((data.timestamp - startTimeMS) / (endTimeMS - startTimeMS)) * 100;
+        console.log("progress value: " + progressValue);
+        progressBar.value = progressValue;
 
-    var table = document.getElementById("replay-data-table");
-    var row = table.insertRow(1);
-    var timeCell = row.insertCell(0);
-    var dataCell = row.insertCell(1);
-    timeCell.style = "width:150px";
-    timeCell.innerHTML = convertEpochDateTime(data.timestamp);
-    dataCell.innerHTML = "key: " + data.key + " - value: " + data.value;
+        if (data.key || data.value) {
+            var table = document.getElementById("replay-data-table");
+            var row = table.insertRow(1);
+            var timeCell = row.insertCell(0);
+            var dataCell = row.insertCell(1);
+            timeCell.style = "width:150px";
+            timeCell.innerHTML = convertEpochDateTime(data.timestamp);
+            dataCell.innerHTML = "key: " + data.key + " - value: " + data.value;
+        }
+    });
 
 }
 
@@ -168,16 +174,19 @@ function updateProgressValue() {
 //setInterval(updateProgressValue, 500);
 
 function changeProgressBar() {
+    let deltaTime = endTimeMS - startTimeMS;
     console.log("progress bar value: " + progressBar.value);
     currentTime = progressBar.value;
+    sendUpdate("/setTime/", startTimeMS + (deltaTime * (progressBar.value/100)));
+
 };
 
 function submitReplayConfig() {
     const startTS = selectStartDate.value + "T" + selectStartTime.value + ":00.00-0400";
-    startTimeMS = ((new Date(startTS)).getTime()) / 1000;
+    startTimeMS = ((new Date(startTS)).getTime()) // / 1000;
 
     const endTS = selectEndDate.value + "T" + selectEndTime.value + ":00.00-0400";
-    endTimeMS = ((new Date(endTS)).getTime()) / 1000;
+    endTimeMS = ((new Date(endTS)).getTime()) /// 1000;
 
     let configData = {
         "topic": selectTopic.value,
@@ -224,7 +233,7 @@ function convertEpochDateTime(epochTime) {
 }
 
 function convertEpochDate(epochTime) {
-    var time = new Date(epochTime * 1000);
+    var time = new Date(epochTime);
 
     let formatTime;
     formatTime = (time.getMonth() + 1).toString().padStart(2,'0');
@@ -237,7 +246,7 @@ function convertEpochDate(epochTime) {
 }
 
 function convertEpochTime(epochTime) {
-    var time = new Date(epochTime * 1000);
+    var time = new Date(epochTime);
 
     let formatTime;
     formatTime = time.getHours().toString().padStart(2,'0');

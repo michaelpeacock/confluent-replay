@@ -1,21 +1,22 @@
 package io.confluent.kivo.replay;
 
+import io.confluent.kivo.config.AppProperties;
 import io.confluent.kivo.controllers.ReplayDataController;
 import io.confluent.kivo.models.ReplayConfig;
 import io.confluent.kivo.models.ReplayData;
 import io.confluent.kivo.models.ReplayState;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import scala.Int;
 
 import javax.annotation.PostConstruct;
 
-@Component
+//@Component
 public class SimpleReplayConsumer {
     @Autowired
     ReplayDataController replaySender;
 
-    private Double replayTime = 0.0;
+    private Long replayTime = 0L;
     private ReplayConfig config = new ReplayConfig();
     private ReplayState state = new ReplayState();
     private Boolean running = false;
@@ -37,7 +38,7 @@ public class SimpleReplayConsumer {
         }
     }
 
-    public void setTime(Double time) {
+    public void setTime(Long time) {
         this.replayTime = time;
     }
 
@@ -47,7 +48,7 @@ public class SimpleReplayConsumer {
         running = true;
         Thread thread = new Thread(() -> {
             while(true) {
-               double interval =  state.getReplaySpeed() * ((double)sleepTime / 1000);
+               Long interval =  state.getReplaySpeed() * (sleepTime / 1000);
                if (state.getReplayState().matches("PLAY"))  {
                    this.replayTime += interval;
 
@@ -57,7 +58,7 @@ public class SimpleReplayConsumer {
                    data.setValue("test-value-" + this.replayTime);
 
                    System.out.println("sending replay data - replayTime: " + this.replayTime);
-                   replaySender.sendReplayData(data);
+                   //replaySender.sendReplayData(data);
                }
 
                 try {

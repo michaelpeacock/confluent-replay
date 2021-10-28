@@ -1,15 +1,15 @@
 package io.confluent.kivo.models;
 
 public class ReplayData {
-    private Double timestamp;
+    private Long timestamp;
     private String key;
     private String value;
 
-    public Double getTimestamp() {
+    public Long getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Double timestamp) {
+    public void setTimestamp(Long timestamp) {
         this.timestamp = timestamp;
     }
 

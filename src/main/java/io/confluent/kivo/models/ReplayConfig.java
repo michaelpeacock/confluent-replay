@@ -2,8 +2,8 @@ package io.confluent.kivo.models;
 
 public class ReplayConfig {
     private String topic;
-    private Double startTime;
-    private Double endTime;
+    private Long startTime;
+    private Long endTime;
 
     public String getTopic() {
         return topic;
@@ -13,19 +13,19 @@ public class ReplayConfig {
         this.topic = topic;
     }
 
-    public Double getStartTime() {
+    public Long getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Double startTime) {
+    public void setStartTime(Long startTime) {
         this.startTime = startTime;
     }
 
-    public Double getEndTime() {
+    public Long getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Double endTime) {
+    public void setEndTime(Long endTime) {
         this.endTime = endTime;
     }
 }
