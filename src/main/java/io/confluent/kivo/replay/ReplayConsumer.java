@@ -133,8 +133,6 @@ public class ReplayConsumer<K, V> implements ConsumerRebalanceListener {
     }
 
     public void offsetToTimeStamp() {
-        System.out.println("in setTimeStamp\n");
-
         // if the start time wasn't set, go to the first offset
         if (config.getStartTime() != 0L) {
             Map<TopicPartition, Long> timestampsToSearch = new HashMap<>();
